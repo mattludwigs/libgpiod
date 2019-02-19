@@ -15,6 +15,12 @@ gpiogetcxx
 gpioinfocxx
 gpiomoncxx
 gpiosetcxx
+gpiodetect-glib
+gpioinfo-glib
+gpioget-glib
+gpioset-glib
+gpiomon-glib
+gpiofind-glib
 *.o
 *.lo
 *.la

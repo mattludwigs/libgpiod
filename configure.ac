@@ -33,6 +33,8 @@ AC_SUBST(VERSION_STR, [$PACKAGE_VERSION$EXTRA_VERSION])
 AC_SUBST(ABI_VERSION, [3.0.1])
 # Have a separate ABI version for C++ bindings:
 AC_SUBST(ABI_CXX_VERSION, [1.0.0])
+# ... and another one for GLib bindings:
+AC_SUBST(ABI_GLIB_VERSION, [1.0.0])
 
 AC_CONFIG_AUX_DIR([autostuff])
 AC_CONFIG_MACRO_DIRS([m4])
@@ -157,6 +159,20 @@ then
 		[AC_SUBST(PYTHON_LIBS, [`$PYTHON-config --libs`])])
 fi
 
+AC_ARG_ENABLE([bindings-glib],
+	[AC_HELP_STRING([--enable-bindings-glib],
+		[enable GLib 2.0 bindings [default=no]])],
+	[if test "x$enableval" = xyes; then with_bindings_glib=true; fi],
+	[with_bindings_glib=false])
+AM_CONDITIONAL([WITH_BINDINGS_GLIB], [test "x$with_bindings_glib" = xtrue])
+
+if test "x$with_bindings_glib" = xtrue
+then
+	PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.50])
+	PKG_CHECK_MODULES([GIO], [gio-2.0 >= 2.50])
+	PKG_CHECK_MODULES([GIO_UNIX], [gio-unix-2.0 >= 2.50])
+fi
+
 AC_CHECK_PROG([has_doxygen], [doxygen], [true], [false])
 AM_CONDITIONAL([HAS_DOXYGEN], [test "x$has_doxygen" = xtrue])
 if test "x$has_doxygen" = xfalse
@@ -186,6 +202,8 @@ AC_CONFIG_FILES([libgpiod.pc
 		 bindings/cxx/examples/Makefile
 		 bindings/python/Makefile
 		 bindings/python/examples/Makefile
+		 bindings/glib/Makefile
+		 bindings/glib/examples/Makefile
 		 man/Makefile])
 
 AC_OUTPUT
