@@ -21,6 +21,7 @@ gpioget-glib
 gpioset-glib
 gpiomon-glib
 gpiofind-glib
+gpio-dbus
 *.o
 *.lo
 *.la
@@ -29,6 +30,7 @@ libgpiod.pc
 libgpiodcxx.pc
 *.tar.gz
 *.patch
+generated-*
 
 # autotools stuff
 .deps/

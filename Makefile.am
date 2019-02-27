@@ -16,6 +16,12 @@ SUBDIRS += tools man
 
 endif
 
+if WITH_DBUS
+
+SUBDIRS += dbus
+
+endif
+
 if WITH_TESTS
 
 SUBDIRS += tests
